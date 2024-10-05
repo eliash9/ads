@@ -21,12 +21,25 @@ function getRandomUrl() {
     var urls = window.pu.urls;
     return urls[Math.floor(Math.random() * urls.length)];
 }
+function setInnerHTML(elm, html) {
+    elm.innerHTML = html;
+    Array.from(elm.querySelectorAll("script")).forEach(function(oldScript) {
+        const newScript = document.createElement("script");
+        Array.from(oldScript.attributes).forEach(function(attr) {
+            newScript.setAttribute(attr.name, attr.value);
+        });
+        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+    });
+}
+
 function inject(location, pu_var) {
     var myDiv = document.createElement("div");
     document[location].appendChild(myDiv);
-
-    setInnerHTML(myDiv, window.pu[pu_var]);
+    
+    setInnerHTML(myDiv, window.pu[pu_var]);  // Calls setInnerHTML here
 }
+
 function create_pu() {
     document.addEventListener('DOMContentLoaded', function () {
         var target = getRandomUrl();
