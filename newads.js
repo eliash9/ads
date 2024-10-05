@@ -36,8 +36,11 @@ function setInnerHTML(elm, html) {
 function inject(location, pu_var) {
     var myDiv = document.createElement("div");
     document[location].appendChild(myDiv);
+
+     const content = window.pu[pu_var] || "Content not available"; // Default text if undefined
+    setInnerHTML(myDiv, content);
     
-    setInnerHTML(myDiv, window.pu[pu_var]);  // Calls setInnerHTML here
+   // setInnerHTML(myDiv, window.pu[pu_var]);  // Calls setInnerHTML here
 }
 
 function create_pu() {
