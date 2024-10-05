@@ -21,7 +21,12 @@ function getRandomUrl() {
     var urls = window.pu.urls;
     return urls[Math.floor(Math.random() * urls.length)];
 }
+function inject(location, pu_var) {
+    var myDiv = document.createElement("div");
+    document[location].appendChild(myDiv);
 
+    setInnerHTML(myDiv, window.pu[pu_var]);
+}
 function create_pu() {
     document.addEventListener('DOMContentLoaded', function () {
         var target = getRandomUrl();
